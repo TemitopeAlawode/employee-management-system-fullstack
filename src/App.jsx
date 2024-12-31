@@ -27,18 +27,21 @@ useEffect(() => {
   getEmployees();
 }, []);
 
-// Fetch employees
+// Fetch employees 
+// http://localhost:8000/employees
 const fetchEmployees = async () => {
-  const res = await fetch("http://localhost:8000/employees");
+  const res = await fetch("https://employee-management-system-69ph.onrender.com/employees");
   const data = await res.json();
   console.log(data);
   return data;
 }
 fetchEmployees();
 
-  // Fetch a single Employee from the server for editing
+
+  // Fetch a single Employee from the server for editing 
+//  http://localhost:8000/employees/${id}
   const fetchEmployee = async (id) => {
-    const res = await fetch(`http://localhost:8000/employees/${id}`);
+    const res = await fetch(`https://employee-management-system-69ph.onrender.com/employees/${id}`);
     const data = await res.json();
     // console.log(data);
     return data;
@@ -47,7 +50,7 @@ fetchEmployees();
 // Add Employee
 const addEmployee = async (employee) => {
   // To add task to the server and UI
-  const res = await fetch("http://localhost:8000/employees", {
+  const res = await fetch("https://employee-management-system-69ph.onrender.com/employees", {
     method: "POST",
     headers: {
       // headers: Specifies the data format (application/json) so the server knows it’s receiving JSON.
@@ -62,7 +65,7 @@ const addEmployee = async (employee) => {
 
 // Delete Employee 
 const deleteEmployee = async(id) => {
-  await fetch(`http://localhost:8000/employees/${id}`, {
+  await fetch(`https://employee-management-system-69ph.onrender.com/employees/${id}`, {
   method: "DELETE"
   });
   setEmployees(employees.filter((employee)=> employee.id != id));
@@ -73,7 +76,7 @@ const deleteEmployee = async(id) => {
 const editEmployee = async (id, updatedData) => {
   const empToEdit = await fetchEmployee(id);
   const editedEmployee = { ...empToEdit, ...updatedData };
-  const res = await fetch(`http://localhost:8000/employees/${id}`, {
+  const res = await fetch(`https://employee-management-system-69ph.onrender.com/employees/${id}`, {
     method: "PUT",
     headers: {
       // headers: Specifies the data format (application/json) so the server knows it’s receiving JSON.
