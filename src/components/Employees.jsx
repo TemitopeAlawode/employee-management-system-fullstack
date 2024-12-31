@@ -4,6 +4,8 @@ const handleDelete = (id) => {
   const confirmDeletion = window.confirm("Are you sure you want to delete this employee details?");
   if (confirmDeletion) {
     onDeleteEmployee(id);
+    console.log(id);
+    
   }
 }
 
