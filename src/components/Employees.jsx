@@ -1,5 +1,12 @@
 
 const Employees = ({employees, onDeleteEmployee, onEditEmployee}) => {
+const handleDelete = (id) => {
+  const confirmDeletion = window.confirm("Are you sure you want to delete this employee details?");
+  if (confirmDeletion) {
+    onDeleteEmployee(id);
+  }
+}
+
   return (
     <div className="container flex flex-wrap justify-center items-center gap-6 mt-4">
     {/* <div className="container flex flex-wrap justify-center md:justify-start gap-4 mt-4 md:pl-4"> */}
@@ -15,7 +22,7 @@ const Employees = ({employees, onDeleteEmployee, onEditEmployee}) => {
                 <li className="py-2">{employee.empDate}</li>
                 <li className="py-2 px-4">
                     <button className='bg-green-500 px-4 py-2 rounded hover:bg-green-700' onClick={() => onEditEmployee(employee.id)}>Edit</button>
-                    <button className='bg-red-500 px-4 py-2 rounded ml-4 hover:bg-red-700' onClick={() => onDeleteEmployee(employee.id)}>Delete</button>
+                    <button className='bg-red-500 px-4 py-2 rounded ml-4 hover:bg-red-700' onClick={() => handleDelete(employee.id)}>Delete</button>
                 </li>
  
         </div>
