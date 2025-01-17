@@ -87,6 +87,7 @@ export const employeeSlice = createSlice({
     employees: [],
   },
   reducers: {
+    // Fetch and Load Employees
     setEmployees: (state, action) => {
       state.employees = action.payload;
     },
