@@ -4,114 +4,78 @@ import AddEmployee from "./components/AddEmployee";
 import EditEmployee from "./components/EditEmployee";
 import Employees from "./components/Employees";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setEmployees } from "../src/features/employee/employeeSlice";
+
 const App = () => {
-  // For the Add Employee form to pop up when the button is clicked
+  // --->>> Local State
+  // For the Add Employee form to pop up when the button is clicked / Add Form visibility
   const [showaddEmployeeForm, setShowAddEmployeeForm] = useState(false);
+  // For the employee to be edited data to be stored
+  const [employeeToEdit, setEmployeeToEdit] = useState(null);
+  // Edit Form Visibility
+  const [showEditEmployeeForm, setShowEditEmployeeForm] = useState(false);
 
-  // For the employees
-const [employees, setEmployees] = useState([]);
-
-// For the employee to be edited
-const [employeeToEdit, setEmployeeToEdit] = useState(null);
-const [showEditEmployeeForm, setShowEditEmployeeForm] = useState(false);
-
+  // For Add Employee form visibility
   const toggleAddEmployeeBtn = () => {
     setShowAddEmployeeForm(!showaddEmployeeForm);
   };
 
-useEffect(() => {
-  const getEmployees = async () => {
-    const employeesFromServer = await fetchEmployees();
-    setEmployees(employeesFromServer); // to add it to our state
+  // --->> Applying Redux for global state management
+
+  // Uses useDispatch for dispatching actions
+  const dispatch = useDispatch();
+  // Uses useSelector to access employees from store
+  const employees = useSelector((state) => state.employee.employees); // Employees data is stored in Redux store
+
+  // Initial Data/page load
+  useEffect(() => {
+    const getEmployees = async () => {
+      const employeesFromServer = await fetchEmployees();
+      dispatch(setEmployees(employeesFromServer)); // to add it to our state
+    };
+    getEmployees();
+  }, [dispatch]);
+
+  // Fetch employees
+  // http://localhost:8000/employees
+  const fetchEmployees = async () => {
+    const res = await fetch(
+      "https://employee-management-system-69ph.onrender.com/employees"
+    );
+    const data = await res.json();
+    console.log(data);
+    return data;
   };
-  getEmployees();
-}, []);
+  // fetchEmployees();
 
-// Fetch employees 
-// http://localhost:8000/employees
-const fetchEmployees = async () => {
-  const res = await fetch("https://employee-management-system-69ph.onrender.com/employees");
-  const data = await res.json();
-  console.log(data);
-  return data;
-}
-fetchEmployees();
-
-
-  // Fetch a single Employee from the server for editing 
-//  http://localhost:8000/employees/${id}
+  // Fetch a single Employee from the server for editing
+  //  http://localhost:8000/employees/${id}
   const fetchEmployee = async (id) => {
-    const res = await fetch(`https://employee-management-system-69ph.onrender.com/employees/${id}`);
+    const res = await fetch(
+      `https://employee-management-system-69ph.onrender.com/employees/${id}`
+    );
     const data = await res.json();
     // console.log(data);
     return data;
   };
 
-// Add Employee
-const addEmployee = async (employee) => {
-  // To add task to the server and UI
-  const res = await fetch("https://employee-management-system-69ph.onrender.com/employees", {
-    method: "POST",
-    headers: {
-      // headers: Specifies the data format (application/json) so the server knows it’s receiving JSON.
-      "Content-type": "application/json",
-    },
-    // body: Contains the actual data (converted into JSON) that is being sent to the server.
-    body: JSON.stringify(employee),
-  });
-  const data = await res.json();
-  setEmployees([...employees, data]);
-};
-
-// Delete Employee 
-const deleteEmployee = async(id) => {
-  await fetch(`https://employee-management-system-69ph.onrender.com/employees/${id}`, {
-  method: "DELETE"
-  });
-  setEmployees(employees.filter((employee)=> employee.id != id));
-}
-
-
-// Edit Employee
-const editEmployee = async (id, updatedData) => {
-  const empToEdit = await fetchEmployee(id);
-  const editedEmployee = { ...empToEdit, ...updatedData };
-  const res = await fetch(`https://employee-management-system-69ph.onrender.com/employees/${id}`, {
-    method: "PUT",
-    headers: {
-      // headers: Specifies the data format (application/json) so the server knows it’s receiving JSON.
-      "Content-type": "application/json",
-    },
-    // body: Contains the actual data (converted into JSON) that is being sent to the server.
-    body: JSON.stringify(editedEmployee),
-  });
-  const data = await res.json();
-
-  // the data we're getting back is the updated employee details...
-  setEmployees(
-    employees.map(
-      (employee) => (employee.id === id ? { ...employee, ...data } : employee)
-   )
-  );
-}
-
-const handleEditEmployee = async (id) => {
-  const empToEdit = await fetchEmployee(id);
-  setEmployeeToEdit(empToEdit);
-  setShowEditEmployeeForm(true);
-};
+  const handleEditEmployee = async (id) => {
+    const empToEdit = await fetchEmployee(id);
+    setEmployeeToEdit(empToEdit);
+    setShowEditEmployeeForm(true);
+  };
 
   return (
     <div>
       <Header onToggleAddEmpBtn={toggleAddEmployeeBtn} />
-      <Employees employees={employees} onDeleteEmployee={deleteEmployee} onEditEmployee={handleEditEmployee}/>
-      {showaddEmployeeForm && <AddEmployee onCancel = {toggleAddEmployeeBtn} onAddEmployee={addEmployee} />}
+      <Employees employees={employees} onEditEmployee={handleEditEmployee} />
+      {showaddEmployeeForm && <AddEmployee onCancel={toggleAddEmployeeBtn} />}
       {showEditEmployeeForm && (
         <EditEmployee
           employee={employeeToEdit}
           onCancel={() => setShowEditEmployeeForm(false)}
-          onSave={(updatedData) => {
-            editEmployee(employeeToEdit.id, updatedData);
+          onSave={() => {
             setShowEditEmployeeForm(false);
           }}
         />

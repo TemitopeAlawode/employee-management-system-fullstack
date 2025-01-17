@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addEmployee } from "../features/employee/employeeSlice";
 
-const AddEmployee = ({ onCancel, onAddEmployee }) => {
+const AddEmployee = ({ onCancel }) => {
   const [profilePic, setProfilePic] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -8,17 +10,19 @@ const AddEmployee = ({ onCancel, onAddEmployee }) => {
   const [jobPosition, setJobPosition] = useState("");
   const [empDate, setEmpDate] = useState("");
 
+const dispatch = useDispatch();
+
   // For when the 'Add Employee' form is submitted
   const onSubmit = (e) => {
     e.preventDefault();
-    onAddEmployee({
+    dispatch(addEmployee({
       profilePic,
       fullName,
       email,
       phoneNumber,
       jobPosition,
       empDate,
-    });
+    }));
 
     // Clears out the input box
     setProfilePic("");

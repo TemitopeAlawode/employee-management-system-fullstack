@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { editEmployee } from "../features/employee/employeeSlice";
 
 const EditEmployee = ({ employee, onCancel, onSave }) => {
   const [profilePic, setProfilePic] = useState(employee.profilePic);
@@ -8,16 +10,25 @@ const EditEmployee = ({ employee, onCancel, onSave }) => {
   const [jobPosition, setJobPosition] = useState(employee.jobPosition);
   const [empDate, setEmpDate] = useState(employee.empDate);
 
+  const dispatch = useDispatch();
+
   const onSubmit = (e) => {
     e.preventDefault();
-    onSave({
-      profilePic,
-      fullName,
-      email,
-      phoneNumber,
-      jobPosition,
-      empDate,
-    });
+    dispatch(
+      editEmployee({
+        id: employee.id,
+        updatedData: {
+          profilePic,
+          fullName,
+          email,
+          phoneNumber,
+          jobPosition,
+          empDate,
+        },
+      })
+    );
+    console.log("id:", employee.id);
+    onSave();
   };
 
   const handleProfilePicChange = (e) => {
