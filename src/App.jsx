@@ -3,6 +3,7 @@ import Header from "../src/components/Header";
 import AddEmployee from "./components/AddEmployee";
 import EditEmployee from "./components/EditEmployee";
 import Employees from "./components/Employees";
+import  ClipLoader  from "react-spinners/ClipLoader";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployees } from "../src/features/employee/employeeSlice";
@@ -21,6 +22,9 @@ const App = () => {
     setShowAddEmployeeForm(!showaddEmployeeForm);
   };
 
+// Before fetching all employees
+const [isLoading, setIsLoading] = useState(true);
+
   // --->> Applying Redux for global state management
 
   // Uses useDispatch for dispatching actions
@@ -31,9 +35,17 @@ const App = () => {
   // Initial Data/page load
   useEffect(() => {
     const getEmployees = async () => {
-      const employeesFromServer = await fetchEmployees();
+      try {
+        const employeesFromServer = await fetchEmployees();
       dispatch(setEmployees(employeesFromServer)); // to add it to our state
-    };
+      } 
+    catch (error) {
+       console.log("Error fetching employees", error); 
+    }
+    finally{
+      setIsLoading(false);
+    }
+  };
     getEmployees();
   }, [dispatch]);
 
@@ -69,7 +81,13 @@ const App = () => {
   return (
     <div>
       <Header onToggleAddEmpBtn={toggleAddEmployeeBtn} />
-      <Employees employees={employees} onEditEmployee={handleEditEmployee} />
+      {isLoading ? (
+        <div className="flex items-center justify-center">
+          <ClipLoader color={"#09f"} loading={isLoading} size={100} />
+        </div>
+      ) : (
+        <Employees employees={employees} onEditEmployee={handleEditEmployee} />
+      )}
       {showaddEmployeeForm && <AddEmployee onCancel={toggleAddEmployeeBtn} />}
       {showEditEmployeeForm && (
         <EditEmployee
