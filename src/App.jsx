@@ -82,8 +82,11 @@ const [isLoading, setIsLoading] = useState(true);
     <div>
       <Header onToggleAddEmpBtn={toggleAddEmployeeBtn} />
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div className="fixed inset-0 flex items-center justify-center">
           <ClipLoader color={"#09f"} loading={isLoading} size={100} />
+          <h4 className="text-gray-600 font-semibold text-xl">
+            Fetching Employees....
+          </h4>
         </div>
       ) : (
         <Employees employees={employees} onEditEmployee={handleEditEmployee} />
