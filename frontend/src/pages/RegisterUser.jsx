@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router";
+const API_BASE_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const RegisterUser = () => {
 // State for each input field
@@ -18,7 +19,7 @@ const userData = {username, email, password}
 try {
   const response = await fetch(
     // "http://localhost:8000/auth/register",
-    `${import.meta.env.REACT_APP_BACKEND_URL}/auth/register`,
+    `${API_BASE_URL}/auth/register`,
   {
     method: "POST",
     headers: {
