@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "server": "nodemon src/server.js",
+    "build": "npm install && npx sequelize-cli db:migrate",
     "start": "node src/server.js"
   },
   "author": "\"Temitope Alawode\"",
@@ -21,6 +22,7 @@
     "nodemon": "^3.1.9",
     "pg": "^8.13.3",
     "pg-hstore": "^2.3.4",
+    "render-cli": "^0.3.2",
     "sequelize": "^6.37.5",
     "sequelize-cli": "^6.6.2"
   }
