@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router";
-const API_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
 
 const RegisterUser = () => {
 // State for each input field

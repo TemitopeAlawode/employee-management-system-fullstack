@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { editEmployee } from "../features/employee/employeeSlice";
 import { useNavigate, useParams } from "react-router";
 
-const API_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
 
 const EditEmployee = () => {
   const [profilepic, setProfilePic] = useState(null);

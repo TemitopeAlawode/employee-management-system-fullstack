@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-const API_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
 
 // Add Employee
 // export const addEmployee = createAsyncThunk(
