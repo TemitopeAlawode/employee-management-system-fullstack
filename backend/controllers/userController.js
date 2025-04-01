@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 // Importing the model(table)
 const Users = require("../models/User");
 // Importing bcrypt for hashing password
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // Importing config file to access jwt secret key
 const config = require("../config/config");
