@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router";
 
+const API_BASE_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
+
 const LoginUser = () => {
 // State for each input field
 const [usernameOrEmail, setUsernameOrEmail ] = useState("");
@@ -24,7 +26,7 @@ const onSubmit = async (e) => {
   try {
     const response = await fetch(
       // "http://localhost:8000/auth/login",
-      `${import.meta.env.REACT_APP_BACKEND_URL}/auth/login`,
+      `${API_BASE_URL}/auth/login`,
     {
       method: "POST",
       headers: {

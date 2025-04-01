@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+const API_BASE_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
 
 // Add Employee
 // export const addEmployee = createAsyncThunk(
@@ -51,7 +52,7 @@ export const addEmployee = createAsyncThunk(
       const res = await fetch(
         // "https://employee-management-system-69ph.onrender.com/employees",
         // "http://localhost:8000/employees/add-employee",
-        `${import.meta.env.REACT_APP_BACKEND_URL}/employees/add-employee`,
+        `${API_BASE_URL}/employees/add-employee`,
         {
           method: "POST",
           headers: {
@@ -143,7 +144,7 @@ export const editEmployee = createAsyncThunk(
       const response = await fetch(
         // `https://employee-management-system-69ph.onrender.com/employees/${id}`,
         // `http://localhost:8000/employees/${id}`,
-        `${import.meta.env.REACT_APP_BACKEND_URL}/employees/${id}`,
+        `${API_BASE_URL}/employees/${id}`,
         {
           method: "PUT",
           headers: {
@@ -176,7 +177,7 @@ export const deleteEmployee = createAsyncThunk(
     await fetch(
       // `https://employee-management-system-69ph.onrender.com/employees/${id}`,
       // `http://localhost:8000/employees/${id}`,
-      `${import.meta.env.REACT_APP_BACKEND_URL}/employees/${id}`,
+      `${API_BASE_URL}/employees/${id}`,
       {
         method: "DELETE",
         headers: {

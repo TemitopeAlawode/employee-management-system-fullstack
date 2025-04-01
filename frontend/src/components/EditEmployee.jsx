@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { editEmployee } from "../features/employee/employeeSlice";
 import { useNavigate, useParams } from "react-router";
 
+const API_BASE_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
+
 const EditEmployee = () => {
   const [profilepic, setProfilePic] = useState(null);
   const [fullname, setFullName] = useState("");
@@ -27,7 +29,7 @@ const EditEmployee = () => {
         const response = await fetch(
           // Make API request for specific employee
           // `http://localhost:8000/employees/${id}`,
-      `${import.meta.env.REACT_APP_BACKEND_URL}/employees/${id}`,
+      `${API_BASE_URL}/employees/${id}`,
           {
             method: "GET",
             headers: {

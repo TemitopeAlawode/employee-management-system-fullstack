@@ -12,6 +12,8 @@ import { setEmployees } from "../src/features/employee/employeeSlice"; // Import
 import Home from "./pages/Home"; // Import Home page component
 import LoginUser from "./pages/LoginUser";
 
+const API_BASE_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
+
 const App = () => {
   // --->>> Local State
   // For the Add Employee form to pop up when the button is clicked / Add Form visibility
@@ -72,7 +74,7 @@ const App = () => {
     try {
       const token = localStorage.getItem("token");
       // const response = await fetch("http://localhost:8000/employees", {
-        const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/employees`, {
+        const response = await fetch(`${API_BASE_URL}/employees`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
