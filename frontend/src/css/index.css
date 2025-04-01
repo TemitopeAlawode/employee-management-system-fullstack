@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    /* background-color:burlywood; */
+    background-image: url('../assets/images/bg-image2.jpeg');
+    /* background-image: url('../assets/images/bg-image.jpg'); */
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    background-position: center;
+}
