@@ -71,7 +71,8 @@ const App = () => {
   const fetchEmployees = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8000/employees", {
+      // const response = await fetch("http://localhost:8000/employees", {
+        const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/employees`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

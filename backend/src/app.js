@@ -16,7 +16,7 @@ const app = express();
 // Middleware setup
 //configuring cors to only accept requests from a particular domain
 const corsOptions = {
-    origin: "http://localhost:5173", // Frontend origin (Vite default port)
+    origin: ["http://localhost:5173", "https://employee-management-system-fullstack.vercel.app/"], // Frontend origin (Vite default port)
     methods: ["GET", "POST", "PUT", "DELETE"],
   };
 app.use(cors(corsOptions)); // Enable CORS for all routes

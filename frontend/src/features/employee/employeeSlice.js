@@ -50,7 +50,8 @@ export const addEmployee = createAsyncThunk(
       // To add employee to the server and UI
       const res = await fetch(
         // "https://employee-management-system-69ph.onrender.com/employees",
-        "http://localhost:8000/employees/add-employee",
+        // "http://localhost:8000/employees/add-employee",
+        `${import.meta.env.REACT_APP_BACKEND_URL}/employees/add-employee`,
         {
           method: "POST",
           headers: {
@@ -141,7 +142,8 @@ export const editEmployee = createAsyncThunk(
 
       const response = await fetch(
         // `https://employee-management-system-69ph.onrender.com/employees/${id}`,
-        `http://localhost:8000/employees/${id}`,
+        // `http://localhost:8000/employees/${id}`,
+        `${import.meta.env.REACT_APP_BACKEND_URL}/employees/${id}`,
         {
           method: "PUT",
           headers: {
@@ -173,7 +175,8 @@ export const deleteEmployee = createAsyncThunk(
     const token = localStorage.getItem("token");
     await fetch(
       // `https://employee-management-system-69ph.onrender.com/employees/${id}`,
-      `http://localhost:8000/employees/${id}`,
+      // `http://localhost:8000/employees/${id}`,
+      `${import.meta.env.REACT_APP_BACKEND_URL}/employees/${id}`,
       {
         method: "DELETE",
         headers: {

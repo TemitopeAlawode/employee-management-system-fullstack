@@ -16,7 +16,9 @@ e.preventDefault(); // Prevents page refresh
 
 const userData = {username, email, password}
 try {
-  const response = await fetch("http://localhost:8000/auth/register",
+  const response = await fetch(
+    // "http://localhost:8000/auth/register",
+    `${import.meta.env.REACT_APP_BACKEND_URL}/auth/register`,
   {
     method: "POST",
     headers: {

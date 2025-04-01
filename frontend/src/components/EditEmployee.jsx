@@ -26,7 +26,8 @@ const EditEmployee = () => {
         const token = localStorage.getItem("token");
         const response = await fetch(
           // Make API request for specific employee
-          `http://localhost:8000/employees/${id}`,
+          // `http://localhost:8000/employees/${id}`,
+      `${import.meta.env.REACT_APP_BACKEND_URL}/employees/${id}`,
           {
             method: "GET",
             headers: {

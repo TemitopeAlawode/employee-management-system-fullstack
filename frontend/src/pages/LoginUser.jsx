@@ -22,7 +22,9 @@ const onSubmit = async (e) => {
   const userLoginData = { usernameOrEmail, password };
 
   try {
-    const response = await fetch("http://localhost:8000/auth/login",
+    const response = await fetch(
+      // "http://localhost:8000/auth/login",
+      `${import.meta.env.REACT_APP_BACKEND_URL}/auth/login`,
     {
       method: "POST",
       headers: {
