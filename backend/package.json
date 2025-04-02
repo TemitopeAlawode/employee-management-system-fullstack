@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "server": "nodemon src/server.js",
-    "start": "node src/server.js",
-    "migrate": "npx sequelize db:migrate"
+    "start": "node start.js",
+    "migrate": "npx sequelize-cli db:migrate"
   },
   "author": "\"Temitope Alawode\"",
   "license": "ISC",
